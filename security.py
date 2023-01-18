@@ -3,10 +3,11 @@ import time
 import datetime
 
 #this below snippet is to notify through whatsapp
+#after you create your twilio account you can find your own credentials
 import twilio
 from twilio.rest import Client
-account_sid = 'ACcc1f5e63748d3809fb569f3710227bbe'
-auth_token = 'ccc2c112d48d4e01b6a80a0569d48413'
+account_sid = 'YOUR TWILIO SID'
+auth_token = 'Twilio Auth token'
 client = Client(account_sid, auth_token)
 def msg():
     message = client.messages.create(to = 'whatsapp:+918106833102',
