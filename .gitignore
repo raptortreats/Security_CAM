@@ -1,0 +1,14 @@
+.env
+.idea/
+*.mp4
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.Python
+.DS_Store
+*.log
+.vscode/
