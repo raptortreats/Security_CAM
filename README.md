@@ -19,6 +19,7 @@ The lite `.task` model is downloaded on first run (or you can pass `--model-path
 - Python 3.10+
 - A webcam
 - Optional: a [Twilio](https://www.twilio.com/) account with WhatsApp (sandbox is fine). Not needed for `--local-only`.
+- Linux: MediaPipe 1.0 needs OpenGL/EGL (`sudo apt install libegl1` if import fails). Desktop installs usually already have this.
 
 ## Setup
 
@@ -45,7 +46,7 @@ Local recording only (no Twilio, no WhatsApp):
 python security.py --local-only --output-dir recordings --preroll 3
 ```
 
-- A camera window opens unless you pass `--no-preview`. Press `q` to quit.
+- A camera window opens unless you pass `--no-preview` (use that on headless machines). Press `q` to quit.
 - Detection writes `DD-MM-YYYY-HH-MM-SS.mp4` under `--output-dir` (default: current directory).
 - Clips include about `--preroll` seconds of frames from *before* the person appeared (default 3s, recommend 2–5).
 - Recording stops about 5 seconds after the person leaves the frame.

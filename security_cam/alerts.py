@@ -22,11 +22,14 @@ class Alerter:
         self.settings = settings
         self._client = client
         self._clock = clock
-        self._last_alert_time = 0.0
+        self._last_alert_time: float | None = None
 
     def send(self, body: str = "Intruder Alert") -> bool:
         now = self._clock()
-        if now - self._last_alert_time < self.settings.alert_cooldown_seconds:
+        if (
+            self._last_alert_time is not None
+            and now - self._last_alert_time < self.settings.alert_cooldown_seconds
+        ):
             return False
 
         if self.settings.local_only:

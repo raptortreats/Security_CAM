@@ -110,7 +110,14 @@ class PersonDetector:
             min_pose_presence_confidence=self.min_confidence,
             min_tracking_confidence=self.min_confidence,
         )
-        return mp.tasks.vision.PoseLandmarker.create_from_options(options)
+        try:
+            return mp.tasks.vision.PoseLandmarker.create_from_options(options)
+        except OSError as exc:
+            raise RuntimeError(
+                "MediaPipe failed to load its native library. On Linux, install "
+                "OpenGL/EGL (for example: sudo apt install libegl1). "
+                f"Original error: {exc}"
+            ) from exc
 
     def detect(self, frame_bgr, timestamp_ms: int | None = None) -> DetectionResult:
         raw = self._infer(frame_bgr, timestamp_ms)
