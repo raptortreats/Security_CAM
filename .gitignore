@@ -1,6 +1,8 @@
 .env
 .idea/
 *.mp4
+models/*.task
+recordings/
 venv/
 .venv/
 env/

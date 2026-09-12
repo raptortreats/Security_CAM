@@ -1,3 +1,4 @@
-opencv-python==4.14.0.94
+opencv-contrib-python==4.14.0.94
+mediapipe==1.0.1
 twilio==9.11.0
 python-dotenv==1.2.3
