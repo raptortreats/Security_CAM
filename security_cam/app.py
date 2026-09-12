@@ -52,6 +52,8 @@ def run(settings: Settings) -> None:
     detection = False
     detection_stopped_time = None
     timer_started = False
+    preview = settings.preview
+    opened_preview = False
 
     print(
         f"Security CAM v2 — MediaPipe Pose, preroll {settings.preroll_seconds:.1f}s, "
@@ -94,16 +96,24 @@ def run(settings: Settings) -> None:
             if recorder.is_recording and not just_started:
                 recorder.write(frame)
 
-            if settings.preview:
+            if preview:
                 annotate(frame, result, recorder.is_recording)
-                cv2.imshow("Camera", frame)
-                if cv2.waitKey(1) == ord("q"):
-                    break
+                try:
+                    cv2.imshow("Camera", frame)
+                    opened_preview = True
+                    if cv2.waitKey(1) == ord("q"):
+                        break
+                except cv2.error:
+                    print(
+                        "OpenCV preview window unavailable. Continuing without it "
+                        "(pass --no-preview to skip)."
+                    )
+                    preview = False
     except KeyboardInterrupt:
         print("Interrupted.")
     finally:
         recorder.stop()
         detector.close()
         camera.release()
-        if settings.preview:
+        if opened_preview:
             cv2.destroyAllWindows()
